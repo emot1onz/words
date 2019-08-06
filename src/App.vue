@@ -1,8 +1,13 @@
 <template>
   <div id="app">
     <div class="menu">
-      <button v-on:click="readFile">Read the File</button>
-      <button v-on:click="chooseWords">Spawn 1000 Words</button>
+      <button v-on:click="spawnCheck">GENERATE</button>
+      <span>AMOUNT OF WORDS</span>
+      <span>COLOR</span>
+      <span>FONT FAMILY</span>
+      <span>BACKGROUND</span>
+      <span>FONT SIZE</span>
+      <span>SCREENSHOT</span>
     </div>
     <Words v-bind:visibleWords="visibleWords" />
   </div>
@@ -21,20 +26,28 @@ export default {
     return {
       visibleWords: [],
       words: [],
-      wordList: wordString.toUpperCase().split('\n')
+      wordList: wordString.toUpperCase().split('\n'),
+      spawned: false
     }
   },
   methods: {
-    readFile: function(){
+    spawnCheck: function(){
+      if(this.spawned == true){
+        this.visibleWords = [];
+        this.spawnWords();
+      } else {
+        this.spawnWords();
+      }
+    },
+    spawnWords: function(){
       this.wordList.forEach(element => {
         this.words.push(element);
       });
-    },
-    chooseWords: function(){
-      for(let i = 0; i<1000; i++){
+      for(let i = 0; i<180; i++){
         let rand = Math.floor((Math.random() * 466551) + 1);
         this.visibleWords.push(this.words[rand]);
       }
+      this.spawned = true;
     }
   }
 }
@@ -42,18 +55,24 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Barriecito|Libre+Caslon+Text|Lobster|Neucha|Roboto&display=swap');
 #app {
+  font-family: 'Lobster', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #ffffff;
 }
 body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background: black;
 }
 .menu {
   display: flex;
-  justify-content: center;
+  background:crimson;
+  justify-content:space-evenly;
+  align-items: center;
+  height: 5vh;
 }
 </style>

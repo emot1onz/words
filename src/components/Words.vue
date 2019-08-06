@@ -1,6 +1,8 @@
 <template>
-  <div class="container">
-    <div class="word" v-bind:style="{ fontFamily: fontFamily(), color: color(), fontSize: fontSize() + 'px' }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
+  <div class="wrapper">
+    <div class="container">
+      <div class="word" v-bind:style="{ fontFamily: fontFamily(), color: color(), fontSize: fontSize() + 'px' }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
+    </div>
   </div>
 </template>
 
@@ -14,12 +16,12 @@ export default {
       fontFamily: function (){
         return this.fontFamilies[Math.floor((Math.random() * this.fontFamilies.length))];
       },
-      colors: ['black', 'red', 'blue', 'magenta', 'orange', 'lightblue', 'gray'],
+      colors: ['gray', 'red', 'blue', 'magenta', 'orange', 'lightblue', 'white', 'lightgray'],
       color: function (){
         return this.colors[Math.floor((Math.random() * this.colors.length))];
       },
       fontSize: function (){
-        return Math.floor((Math.random() * 38) + 12);
+        return (Math.random() * 30) + 10;
       }
     }
   }
@@ -45,17 +47,21 @@ a {
   color: #42b983;
 }
 
+.wrapper {
+  padding-top: 5%;
+}
+
 .container {
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .word {
-  display: flex;
+  display: inline-block;
   align-self: flex-end;
-  margin: -5px 0;
-  padding: 0 1px;
+  padding-right: 1px;
+  padding-left: 1px;
 }
 </style>
