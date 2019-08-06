@@ -48,7 +48,8 @@ a {
 }
 
 .wrapper {
-  padding-top: 5%;
+  padding-top: 10%;
+  width: 80%;
 }
 
 .container {

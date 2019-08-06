@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <div class="menu">
-      <button v-on:click="spawnCheck">GENERATE</button>
-      <span>AMOUNT OF WORDS</span>
-      <span>COLOR</span>
-      <span>FONT FAMILY</span>
-      <span>BACKGROUND</span>
-      <span>FONT SIZE</span>
-      <span>SCREENSHOT</span>
+      <ul>
+        <span id="logo">Words</span>
+        <li>AMOUNT OF WORDS</li>
+        <li>COLOR</li>
+        <li>FONT FAMILY</li>
+        <li>BACKGROUND</li>
+        <li>FONT SIZE</li>
+        <li><button class="generate-button" v-on:click="spawnCheck">GENERATE</button></li>
+      </ul>
     </div>
     <Words v-bind:visibleWords="visibleWords" />
   </div>
@@ -43,7 +45,7 @@ export default {
       this.wordList.forEach(element => {
         this.words.push(element);
       });
-      for(let i = 0; i<180; i++){
+      for(let i = 0; i<100; i++){
         let rand = Math.floor((Math.random() * 466551) + 1);
         this.visibleWords.push(this.words[rand]);
       }
@@ -57,10 +59,12 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Barriecito|Libre+Caslon+Text|Lobster|Neucha|Roboto&display=swap');
 #app {
-  font-family: 'Lobster', cursive;
+  display: flex;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #ffffff;
+  color: black;
 }
 body {
   padding: 0;
@@ -69,10 +73,28 @@ body {
   background: black;
 }
 .menu {
-  display: flex;
-  background:crimson;
-  justify-content:space-evenly;
-  align-items: center;
-  height: 5vh;
+  position: absolute;
+  transform: translateX(-20em);
+  width: 20em;
+  background: rgba(255, 255, 255, 80%);
+  height: 100vh;
+}
+ul {
+  list-style: none;
+  height: 100%;
+}
+li {
+  padding: 2em 0;
+}
+#logo {
+  font-family: 'Lobster', cursive;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+.generate-button {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 15px;
+  font-size: 1.2em;
 }
 </style>
