@@ -1,18 +1,15 @@
 <template>
   <div id="init">
-    <div v-for="word in words" v-bind:key="word"> {{ word }} </div>
+    <div v-for="word in wordObjects" v-bind:key="word.id"> {{ word.word }} </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Words',
-  data() {
-    return {
-    words: ['test', 'banana', 'strawberry']
-    }
-  }
+  props: ["wordObjects"]
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
