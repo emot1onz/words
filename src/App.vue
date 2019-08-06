@@ -4,11 +4,6 @@
       <ul>
         <span id="logo">Words</span>
         <li><vue-slider v-bind="sliderOptions" v-model="wordValue" /></li>
-        <li class="color-wrapper">FONT COLOR <verte v-model="fontColor" picker="square" model="rgb"></verte></li>
-        <li class="color-wrapper">RANDOM FONT COLORS</li>
-        <li>FONT FAMILY</li>
-        <li>BACKGROUND</li>
-        <li>FONT SIZE</li>
         <li><button class="generate-button" v-on:click="spawnCheck">GENERATE</button></li>
       </ul>
     </div>
@@ -23,15 +18,11 @@ import wordString from 'raw-loader!./wordlist.txt';
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 
-import Verte from 'verte';
-import 'verte/dist/verte.css';
-
 export default {
   name: 'app',
   components: {
     Words,
-    VueSlider,
-    Verte
+    VueSlider
   },
   data() {
     return {
