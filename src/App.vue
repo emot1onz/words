@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <Words v-bind:wordObjects="wordObjects" />
-    <button v-on:click="readFile">Click me</button>
+    <div class="menu">
+      <button v-on:click="readFile">Read the File</button>
+      <button v-on:click="chooseWords">Spawn 1000 Words</button>
+    </div>
+    <Words v-bind:visibleWords="visibleWords" />
   </div>
 </template>
 
@@ -16,16 +19,23 @@ export default {
   },
   data() {
     return {
-      wordObjects: [],
-      wordList: wordString.split('\n')
+      visibleWords: [],
+      words: [],
+      wordList: wordString.toUpperCase().split('\n')
     }
   },
   methods: {
     readFile: function(){
-      this.wordList.forEach(function(element, key) {
-        this.wordObjects.push({id: key, word: element});
+      this.wordList.forEach(element => {
+        this.words.push(element);
       });
     },
+    chooseWords: function(){
+      for(let i = 0; i<1000; i++){
+        let rand = Math.floor((Math.random() * 466551) + 1);
+        this.visibleWords.push(this.words[rand]);
+      }
+    }
   }
 }
 
@@ -33,9 +43,17 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.menu {
+  display: flex;
+  justify-content: center;
 }
 </style>
