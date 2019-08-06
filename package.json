@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "verte": "0.0.12",
+    "vue": "^2.6.10",
+    "vue-slider-component": "^3.0.34"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",

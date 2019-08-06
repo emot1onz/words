@@ -1,15 +1,16 @@
 <template>
   <div class="wrapper">
     <div class="container">
-      <div class="word" v-bind:style="{ fontFamily: fontFamily(), color: color(), fontSize: fontSize() + 'px' }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
+      <div class="word" v-bind:style="{ fontFamily: fontFamily(), color: fontColor, fontSize: fontSize() + 'px' }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'Words',
-  props: ["visibleWords"],
+  props: ["visibleWords", "fontColor"],
   data() {
     return {
       fontFamilies: ["'Libre Caslon Text', serif", "'Roboto', sans-serif", "'Lobster', cursive", "'Barriecito', cursive", "'Neucha', cursive"],

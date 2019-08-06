@@ -3,8 +3,9 @@
     <div class="menu">
       <ul>
         <span id="logo">Words</span>
-        <li>AMOUNT OF WORDS</li>
-        <li>COLOR</li>
+        <li><vue-slider v-bind="sliderOptions" v-model="wordValue" /></li>
+        <li class="color-wrapper">FONT COLOR <verte v-model="fontColor" picker="square" model="rgb"></verte></li>
+        <li class="color-wrapper">RANDOM FONT COLORS</li>
         <li>FONT FAMILY</li>
         <li>BACKGROUND</li>
         <li>FONT SIZE</li>
@@ -19,17 +20,37 @@
 import Words from './components/Words.vue'
 import wordString from 'raw-loader!./wordlist.txt';
 
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/antd.css'
+
+import Verte from 'verte';
+import 'verte/dist/verte.css';
+
 export default {
   name: 'app',
   components: {
-    Words
+    Words,
+    VueSlider,
+    Verte
   },
   data() {
     return {
       visibleWords: [],
       words: [],
       wordList: wordString.toUpperCase().split('\n'),
-      spawned: false
+      spawned: false,
+      wordValue: 100,
+      fontColor: '',
+      sliderOptions: {
+        min: 1,
+        max: 200,
+        height: 5,
+        width: 240,
+        dotSize: 20,
+        tooltipPlacement: 'bottom',
+        dotStyle: void 0,
+        railStyle: void 0
+      }
     }
   },
   methods: {
@@ -45,7 +66,7 @@ export default {
       this.wordList.forEach(element => {
         this.words.push(element);
       });
-      for(let i = 0; i<100; i++){
+      for(let i = 0; i<this.wordValue; i++){
         let rand = Math.floor((Math.random() * 466551) + 1);
         this.visibleWords.push(this.words[rand]);
       }
@@ -96,5 +117,42 @@ li {
   border: 1px solid #ffffff;
   border-radius: 15px;
   font-size: 1.2em;
+}
+
+.color-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 15em;
+  height: 20px;
+}
+
+.color {
+  width: 22px;
+  height: 22px;
+  border-radius: 12px;
+  border: 2px solid rgba(44, 195, 255, 0);
+}
+
+.color:hover {
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.one {
+  background: black;
+}
+.two {
+  background: white;
+}
+.three {
+  background: rgb(255, 60, 60);
+}
+.four {
+  background: rgb(60, 60, 255);
+}
+.five {
+  background: rgb(60, 255, 60);
+}
+.six {
+  background: rgb(255, 60, 255);
 }
 </style>
