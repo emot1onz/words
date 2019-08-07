@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="container">
-      <div class="word" v-bind:style="{ fontFamily: fontFamily(), color: fontColor, fontSize: fontSize() + 'px' }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
+      <div class="word" v-bind:style="{ fontFamily: fontFamily(), fontSize: '20px', color: fontColor() }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
     </div>
   </div>
 </template>
@@ -10,9 +10,16 @@
 
 export default {
   name: 'Words',
-  props: ["visibleWords", "fontColor"],
+  props: ["visibleWords", "fontFam", "fontCol"],
   data() {
     return {
+      fontFamily: function(){
+        return this.fontFam;
+      },
+      fontColor: function(){
+        return this.fontCol;
+      }
+      /*
       fontFamilies: ["'Libre Caslon Text', serif", "'Roboto', sans-serif", "'Lobster', cursive", "'Barriecito', cursive", "'Neucha', cursive"],
       fontFamily: function (){
         return this.fontFamilies[Math.floor((Math.random() * this.fontFamilies.length))];
@@ -24,6 +31,7 @@ export default {
       fontSize: function (){
         return (Math.random() * 30) + 10;
       }
+      */
     }
   }
 }

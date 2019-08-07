@@ -3,16 +3,16 @@
     <div class="menu">
       <ul>
         <span id="logo">Words</span>
-        <li><vue-slider v-bind="sliderOptions" v-model="wordValue" /></li>
-        <li class="color-wrapper">FONT COLOR <verte v-model="fontColor" picker="square" model="rgb"></verte></li>
-        <li class="color-wrapper">RANDOM FONT COLORS</li>
+        <li><vue-slider v-bind="sliderOptions" v-model="amountOfWords" /></li>
+        <li class="color-wrapper">FONT COLOR <verte picker="square" model="rgb" v-model="fontCol"></verte></li>
+        <li>RANDOM FONT COLORS</li>
         <li>FONT FAMILY</li>
         <li>BACKGROUND</li>
         <li>FONT SIZE</li>
         <li><button class="generate-button" v-on:click="spawnCheck">GENERATE</button></li>
       </ul>
     </div>
-    <Words v-bind:visibleWords="visibleWords" />
+    <Words v-bind:visibleWords="visibleWords" :fontFam="fontFam" :fontCol="fontCol"/>
   </div>
 </template>
 
@@ -36,11 +36,14 @@ export default {
   data() {
     return {
       visibleWords: [],
+      fontFam: "'Lobster', cursive",
+      fontCol: '',
       words: [],
       wordList: wordString.toUpperCase().split('\n'),
       spawned: false,
-      wordValue: 100,
-      fontColor: '',
+
+      // Slider for the amount of words, dont change amountOfWords!
+      amountOfWords: 100,
       sliderOptions: {
         min: 1,
         max: 200,
@@ -54,6 +57,7 @@ export default {
     }
   },
   methods: {
+    // Checking if words are already there
     spawnCheck: function(){
       if(this.spawned == true){
         this.visibleWords = [];
@@ -62,11 +66,12 @@ export default {
         this.spawnWords();
       }
     },
+    // Spawn this.amountOfWords
     spawnWords: function(){
       this.wordList.forEach(element => {
         this.words.push(element);
       });
-      for(let i = 0; i<this.wordValue; i++){
+      for(let i = 0; i<this.amountOfWords; i++){
         let rand = Math.floor((Math.random() * 466551) + 1);
         this.visibleWords.push(this.words[rand]);
       }
