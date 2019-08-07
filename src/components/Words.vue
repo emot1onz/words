@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="container">
-      <div class="word" v-bind:style="{ fontFamily: fontFamily(), fontSize: '20px', color: fontColor() }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
+      <div class="word" v-bind:style="{ fontFamily: setFontFamily(), fontSize: setFontSize() + 'px', color: setFontColor() }" v-for="element in visibleWords" v-bind:key="element.key">{{ element }}</div>
     </div>
   </div>
 </template>
@@ -10,16 +10,23 @@
 
 export default {
   name: 'Words',
-  props: ["visibleWords", "fontFam", "fontCol"],
+  props: ["visibleWords", "fontFam", "fontCol", 'backgroundCol'],
   data() {
     return {
-      fontFamily: function(){
+      setFontFamily: function(){
         return this.fontFam;
       },
-      fontColor: function(){
+      setFontColor: function(){
         return this.fontCol;
-      }
+      },
+      setBackgroundColor: function(){
+        //TODO
+      },
       /*
+      setFontSize: function(){
+        return this.fontSize + 'px';
+      },
+      
       fontFamilies: ["'Libre Caslon Text', serif", "'Roboto', sans-serif", "'Lobster', cursive", "'Barriecito', cursive", "'Neucha', cursive"],
       fontFamily: function (){
         return this.fontFamilies[Math.floor((Math.random() * this.fontFamilies.length))];
@@ -28,10 +35,10 @@ export default {
       color: function (){
         return this.colors[Math.floor((Math.random() * this.colors.length))];
       },
-      fontSize: function (){
-        return (Math.random() * 30) + 10;
-      }
       */
+      setFontSize: function (){
+        return ((Math.random() * 30) + 10);
+      }
     }
   }
 }

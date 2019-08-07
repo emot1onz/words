@@ -3,12 +3,11 @@
     <div class="menu">
       <ul>
         <span id="logo">Words</span>
-        <li><vue-slider v-bind="sliderOptions" v-model="amountOfWords" /></li>
+        <li><vue-slider v-bind="sliderWords" v-model="amountOfWords" /></li>
         <li class="color-wrapper">FONT COLOR <verte picker="square" model="rgb" v-model="fontCol"></verte></li>
         <li>RANDOM FONT COLORS</li>
         <li>FONT FAMILY</li>
-        <li>BACKGROUND</li>
-        <li>FONT SIZE</li>
+        <li class="color-wrapper">BACKGROUND COLOR<verte picker="square" model="rgb" v-model="backgroundCol"></verte></li>
         <li><button class="generate-button" v-on:click="spawnCheck">GENERATE</button></li>
       </ul>
     </div>
@@ -37,14 +36,15 @@ export default {
     return {
       visibleWords: [],
       fontFam: "'Lobster', cursive",
-      fontCol: '',
+      fontCol: '#FFF',
+      backgroundCol: '',
       words: [],
       wordList: wordString.toUpperCase().split('\n'),
       spawned: false,
 
       // Slider for the amount of words, dont change amountOfWords!
       amountOfWords: 100,
-      sliderOptions: {
+      sliderWords: {
         min: 1,
         max: 200,
         height: 5,
@@ -90,7 +90,6 @@ export default {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: black;
 }
 body {
   padding: 0;
