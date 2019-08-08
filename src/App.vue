@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       visibleWords: [],
-      fontFam: "'Lobster', cursive",
+      fontFam: 'RANDOM',
       fontCol: '#ce2121',
       backgroundCol: '#000',
       words: [],
