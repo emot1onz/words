@@ -10,7 +10,7 @@
 
 export default {
   name: 'Words',
-  props: ["visibleWords", "fontFam", "fontCol", 'backgroundCol', 'randomFontColors'],
+  props: ["visibleWords", "fontFam", "fontCol", 'randomFontColors'],
   data() {
     return {
       fontFamilies: ["'Libre Caslon Text', serif", "'Roboto', sans-serif", "'Lobster', cursive", "'Barriecito', cursive", "'Neucha', cursive"],
@@ -26,9 +26,6 @@ export default {
           return this.colors[Math.floor((Math.random() * this.colors.length))];
         }
         return this.fontCol;
-      },
-      setBackgroundColors: function(){
-        //TODO
       },
       setFontSize: function (){
         return ((Math.random() * 30) + 10);

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="menu">
-      <ul>
-        <span id="logo">Words</span>
+      <ul><li class="logo-padding"><span id="logo" v-on:click="toggleMenu()">Words</span></li></ul>
+      <ul v-if="menuOpen">
         <li><vue-slider v-bind="sliderWords" v-model="amountOfWords" /></li>
         <li class="wrapper">FONT COLOR <verte picker="square" model="rgb" v-model="fontCol"></verte></li>
         <li class="wrapper">RANDOM FONT COLORS
@@ -21,8 +21,10 @@
           </dropdown>
         </li>
         <li class="wrapper">BACKGROUND COLOR<verte picker="square" model="rgb" v-model="backgroundCol"></verte></li>
-        <li><button class="generate-button" v-on:click="spawnCheck">GENERATE</button></li>
+        <li>SCREENSHOT</li>
+        <li><button class="generate-button" v-on:click="spawnCheck" :click="setBackgroundColors()">GENERATE</button></li>
       </ul>
+      <p class="menu-closer" v-if="menuOpen" v-on:click="toggleMenu()">^</p>
     </div>
     <Words v-bind:visibleWords="visibleWords" :fontFam="fontFam" :fontCol="fontCol" :randomFontColors="randomFontColors"/>
   </div>
@@ -41,6 +43,9 @@ import 'verte/dist/verte.css';
 import Dropdown from 'bp-vuejs-dropdown';
 
 export default {
+  beforeCreate: function() {
+        document.body.className = 'home';
+  },
   name: 'app',
   components: {
     Words,
@@ -52,17 +57,18 @@ export default {
     return {
       visibleWords: [],
       fontFam: "'Lobster', cursive",
-      fontCol: '#FFF',
-      backgroundCol: '',
+      fontCol: '#ce2121',
+      backgroundCol: '#000',
       words: [],
       wordList: wordString.toUpperCase().split('\n'),
       spawned: false,
-      randomFontColors: false,
+      randomFontColors: true,
+      menuOpen: true,
       fontFamilies: [
-        {id: 1, active: false, name: "RANDOM"},
+        {id: 1, active: true, name: "RANDOM"},
         {id: 2, active: false, name: "'Libre Caslon Text', serif"}, 
         {id: 3, active: false, name: "'Roboto', sans-serif"}, 
-        {id: 4, active: true, name: "'Lobster', cursive"},
+        {id: 4, active: false, name: "'Lobster', cursive"},
         {id: 5, active: false, name: "'Barriecito', cursive"},
         {id: 6, active: false, name: "'Neucha', cursive"}],
 
@@ -103,6 +109,13 @@ export default {
     },
     toggleRandomFontColors: function (){
       this.randomFontColors = !this.randomFontColors;
+    },
+    toggleMenu: function (){
+      this.menuOpen = !this.menuOpen;
+    },
+    setBackgroundColors: function(){
+        let body = document.querySelector('.home');
+        body.setAttribute('style', 'background:' + this.backgroundCol + ';');
     }
   }
 }
@@ -117,12 +130,12 @@ export default {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background: black;
 }
 .menu {
   position: absolute;
@@ -145,8 +158,9 @@ li {
 .generate-button {
   background: #ffffff;
   border: 1px solid #ffffff;
-  border-radius: 15px;
+  padding: 5px;
   font-size: 1.2em;
+  box-shadow: -4px 4px 2px 1px rgba(0, 0, 0, .2);
 }
 
 .wrapper {
@@ -167,5 +181,18 @@ li {
 .list-btn {
   border: none;
   background: rgba(255, 255, 255, 0%);
+}
+
+.menu-closer {
+  font-size: 2em;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+.logo-padding {
+  padding: 0;
+  cursor: pointer;
 }
 </style>
