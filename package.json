@@ -11,7 +11,8 @@
     "core-js": "^2.6.5",
     "verte": "0.0.12",
     "vue": "^2.6.10",
-    "vue-slider-component": "^3.0.34"
+    "vue-slider-component": "^3.0.34",
+    "vue-switches": "^2.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",

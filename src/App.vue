@@ -6,10 +6,10 @@
         <li><vue-slider v-bind="sliderWords" v-model="amountOfWords" /></li>
         <li class="wrapper">FONT COLOR <verte picker="square" model="rgb" v-model="fontCol"></verte></li>
         <li class="wrapper">RANDOM FONT COLORS
-          <button v-on:click='toggleRandomFontColors()'> {{ randomFontColors }} </button> 
+          <switches v-model="randomFontColors"></switches>
         </li>
         <li>
-          <dropdown :x="-10">
+          <dropdown>
             <template slot="btn">FONT FAMILY</template>
             <template slot="body">
                 <li class="list" v-for="font in fontFamilies" v-bind:key="font.name">
@@ -42,6 +42,8 @@ import 'verte/dist/verte.css';
 
 import Dropdown from 'bp-vuejs-dropdown';
 
+import Switches from 'vue-switches';
+
 export default {
   beforeCreate: function() {
         document.body.className = 'home';
@@ -51,7 +53,8 @@ export default {
     Words,
     VueSlider,
     Verte,
-    Dropdown
+    Dropdown,
+    Switches
   },
   data() {
     return {
