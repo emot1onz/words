@@ -10,32 +10,26 @@
 
 export default {
   name: 'Words',
-  props: ["visibleWords", "fontFam", "fontCol", 'backgroundCol'],
+  props: ["visibleWords", "fontFam", "fontCol", 'backgroundCol', 'randomFontColors'],
   data() {
     return {
+      fontFamilies: ["'Libre Caslon Text', serif", "'Roboto', sans-serif", "'Lobster', cursive", "'Barriecito', cursive", "'Neucha', cursive"],
       setFontFamily: function(){
+        if(this.fontFam == "RANDOM"){
+          return this.fontFamilies[Math.floor((Math.random() * this.fontFamilies.length))];
+        }
         return this.fontFam;
       },
+      colors: ['gray', 'red', 'blue', 'magenta', 'orange', 'lightblue', 'white', 'lightgray'],
       setFontColor: function(){
+        if(this.randomFontColors == true){
+          return this.colors[Math.floor((Math.random() * this.colors.length))];
+        }
         return this.fontCol;
       },
-      setBackgroundColor: function(){
+      setBackgroundColors: function(){
         //TODO
       },
-      /*
-      setFontSize: function(){
-        return this.fontSize + 'px';
-      },
-      
-      fontFamilies: ["'Libre Caslon Text', serif", "'Roboto', sans-serif", "'Lobster', cursive", "'Barriecito', cursive", "'Neucha', cursive"],
-      fontFamily: function (){
-        return this.fontFamilies[Math.floor((Math.random() * this.fontFamilies.length))];
-      },
-      colors: ['gray', 'red', 'blue', 'magenta', 'orange', 'lightblue', 'white', 'lightgray'],
-      color: function (){
-        return this.colors[Math.floor((Math.random() * this.colors.length))];
-      },
-      */
       setFontSize: function (){
         return ((Math.random() * 30) + 10);
       }

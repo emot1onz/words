@@ -4,33 +4,49 @@
       <ul>
         <span id="logo">Words</span>
         <li><vue-slider v-bind="sliderWords" v-model="amountOfWords" /></li>
-        <li class="color-wrapper">FONT COLOR <verte picker="square" model="rgb" v-model="fontCol"></verte></li>
-        <li>RANDOM FONT COLORS</li>
-        <li>FONT FAMILY</li>
-        <li class="color-wrapper">BACKGROUND COLOR<verte picker="square" model="rgb" v-model="backgroundCol"></verte></li>
+        <li class="wrapper">FONT COLOR <verte picker="square" model="rgb" v-model="fontCol"></verte></li>
+        <li class="wrapper">RANDOM FONT COLORS
+          <button v-on:click='toggleRandomFontColors()'> {{ randomFontColors }} </button> 
+        </li>
+        <li>
+          <dropdown :x="-10">
+            <template slot="btn">FONT FAMILY</template>
+            <template slot="body">
+                <li class="list" v-for="font in fontFamilies" v-bind:key="font.name">
+                  <button class="list-btn" v-on:click="fontFam = font.name">
+                    {{font.name}}
+                  </button>  
+                </li>
+            </template>
+          </dropdown>
+        </li>
+        <li class="wrapper">BACKGROUND COLOR<verte picker="square" model="rgb" v-model="backgroundCol"></verte></li>
         <li><button class="generate-button" v-on:click="spawnCheck">GENERATE</button></li>
       </ul>
     </div>
-    <Words v-bind:visibleWords="visibleWords" :fontFam="fontFam" :fontCol="fontCol"/>
+    <Words v-bind:visibleWords="visibleWords" :fontFam="fontFam" :fontCol="fontCol" :randomFontColors="randomFontColors"/>
   </div>
 </template>
 
 <script>
-import Words from './components/Words.vue'
+import Words from './components/Words.vue';
 import wordString from 'raw-loader!./wordlist.txt';
 
-import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/antd.css'
+import VueSlider from 'vue-slider-component';
+import 'vue-slider-component/theme/antd.css';
 
 import Verte from 'verte';
 import 'verte/dist/verte.css';
+
+import Dropdown from 'bp-vuejs-dropdown';
 
 export default {
   name: 'app',
   components: {
     Words,
     VueSlider,
-    Verte
+    Verte,
+    Dropdown
   },
   data() {
     return {
@@ -41,6 +57,14 @@ export default {
       words: [],
       wordList: wordString.toUpperCase().split('\n'),
       spawned: false,
+      randomFontColors: false,
+      fontFamilies: [
+        {id: 1, active: false, name: "RANDOM"},
+        {id: 2, active: false, name: "'Libre Caslon Text', serif"}, 
+        {id: 3, active: false, name: "'Roboto', sans-serif"}, 
+        {id: 4, active: true, name: "'Lobster', cursive"},
+        {id: 5, active: false, name: "'Barriecito', cursive"},
+        {id: 6, active: false, name: "'Neucha', cursive"}],
 
       // Slider for the amount of words, dont change amountOfWords!
       amountOfWords: 100,
@@ -76,6 +100,9 @@ export default {
         this.visibleWords.push(this.words[rand]);
       }
       this.spawned = true;
+    },
+    toggleRandomFontColors: function (){
+      this.randomFontColors = !this.randomFontColors;
     }
   }
 }
@@ -99,10 +126,9 @@ body {
 }
 .menu {
   position: absolute;
-  transform: translateX(-20em);
   width: 20em;
-  background: rgba(255, 255, 255, 80%);
-  height: 100vh;
+  background: rgba(255, 255, 255, 90%);
+  height: auto;
 }
 ul {
   list-style: none;
@@ -123,40 +149,23 @@ li {
   font-size: 1.2em;
 }
 
-.color-wrapper {
+.wrapper {
   display: flex;
   justify-content: space-between;
   width: 15em;
   height: 20px;
 }
 
-.color {
-  width: 22px;
-  height: 22px;
-  border-radius: 12px;
-  border: 2px solid rgba(44, 195, 255, 0);
+.list {
+  padding: 3px 3px 2px 5px;
 }
 
-.color:hover {
-  border: 2px solid rgba(0, 0, 0, 0.5);
+.list:hover {
+  background: lightgray;
 }
 
-.one {
-  background: black;
-}
-.two {
-  background: white;
-}
-.three {
-  background: rgb(255, 60, 60);
-}
-.four {
-  background: rgb(60, 60, 255);
-}
-.five {
-  background: rgb(60, 255, 60);
-}
-.six {
-  background: rgb(255, 60, 255);
+.list-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0%);
 }
 </style>
